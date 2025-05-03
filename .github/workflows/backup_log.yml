@@ -7,15 +7,15 @@ on:
 
 jobs:
   backup-monitor:
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Clonar repositório
         uses: actions/checkout@v3
 
       - name: |
-        sudo apt update
-        sudo apt install -y tar coreutils grep
+          sudo apt update
+          sudo apt install -y tar coreutils grep
 
       - name: Executar backup
         run: bash backup.sh
