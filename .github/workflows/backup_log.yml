@@ -1,0 +1,30 @@
+name: Backup e Monitoramento de Logs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"
+
+jobs:
+  backup-monitor:
+    runs-on: unbuntu-latest
+
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: |
+        sudo apt update
+        sudo apt install -y tar coreutils grep
+
+      - name: Executar backup
+        run: bash backup.sh
+
+      - name: Analisar logs
+        run: bash log_scan.sh
+
+      - name: Salvar relatórios com artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-log-reports
+          path: reports/
