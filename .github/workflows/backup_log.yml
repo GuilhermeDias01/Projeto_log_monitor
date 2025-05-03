@@ -1,5 +1,3 @@
-name: Backup e Monitoramento de Logs
-
 on:
   workflow_dispatch:
   schedule:
@@ -24,8 +22,14 @@ jobs:
       - name: Analisar logs
         run: bash log_scan.sh
 
+      - name: Salvar arquivos de backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: arquivos-de-backup
+          path: backups_projeto_log_monitor/
+
       - name: Salvar relatórios com artefato
         uses: actions/upload-artifact@v4
         with:
           name: backup-log-reports
-          path: reports/
+          path: reports
